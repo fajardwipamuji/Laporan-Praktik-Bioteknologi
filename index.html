@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroSmart Lab - LKPD Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f3f4f6; }
+        .module-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-4 md:p-8 text-gray-800">
+
+    <div class="max-w-2xl mx-auto">
+        
+        <!-- Header -->
+        <div class="text-center mb-8 bg-green-600 text-white p-6 rounded-xl shadow-lg">
+            <h1 class="text-2xl md:text-3xl font-bold">🌱 AgroSmart Lab</h1>
+            <p class="text-sm mt-2">Portal Laporan Praktikum Terpadu SMK Agribisnis Ternak</p>
+        </div>
+
+        <form id="form-evaluasi">
+            
+            <!-- IDENTITAS -->
+            <div class="module-card border-t-4 border-green-600">
+                <h2 class="text-xl font-bold mb-4">📝 Identitas Kelompok</h2>
+                
+                <label class="block text-sm font-semibold mb-1">Pilih Kelas:</label>
+                <select id="input-kelas" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
+                    <option value="">-- Pilih Kelas --</option>
+                    <option value="XI Agribisnis Ternak A">XI Agribisnis Ternak A</option>
+                    <option value="XI Agribisnis Ternak B">XI Agribisnis Ternak B</option>
+                    <option value="XII Agribisnis Ternak A">XII Agribisnis Ternak A</option>
+                </select>
+
+                <label class="block text-sm font-semibold mb-1">Kelompok:</label>
+                <select id="input-kelompok" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
+                    <option value="">-- Pilih Kelompok --</option>
+                    <option value="Kelompok 1">Kelompok 1</option>
+                    <option value="Kelompok 2">Kelompok 2</option>
+                    <option value="Kelompok 3">Kelompok 3</option>
+                    <option value="Kelompok 4">Kelompok 4</option>
+                    <option value="Kelompok 5">Kelompok 5</option>
+                </select>
+
+                <label class="block text-sm font-semibold mb-1">Nama Anggota Hadir:</label>
+                <textarea id="input-anggota" rows="2" class="w-full p-3 border rounded-lg bg-gray-50" placeholder="Misal: 1. Budi, 2. Andi, 3. Siti..." required></textarea>
+            </div>
+
+            <!-- MODUL 1 -->
+            <div class="module-card border-t-4 border-blue-500">
+                <h2 class="text-xl font-bold mb-4">Modul 1: Fermentasi Pakan 🌱</h2>
+                
+                <label class="block text-sm font-semibold mb-1">Aroma saat silo dibuka:</label>
+                <select id="m1-aroma" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <option value="">-- Pilih Aroma --</option>
+                    <option value="Wangi asam manis segar (Bagus)">Wangi asam manis segar (Bagus)</option>
+                    <option value="Bau busuk menyengat (Gagal)">Bau busuk menyengat (Gagal)</option>
+                    <option value="Tidak berbau">Tidak berbau</option>
+                </select>
+
+                <label class="block text-sm font-semibold mb-1">Kondisi Jamur:</label>
+                <select id="m1-jamur" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <option value="">-- Pilih Kondisi --</option>
+                    <option value="Ada Jamur Putih (Sukses)">Ada Jamur Putih (Sukses)</option>
+                    <option value="Ada Jamur Hitam/Lendir (Gagal)">Ada Jamur Hitam/Lendir (Gagal)</option>
+                    <option value="Bersih tanpa jamur">Bersih tanpa jamur</option>
+                </select>
+
+                <label class="block text-sm font-semibold mb-1">Kesimpulan Modul 1:</label>
+                <select id="m1-kesimpulan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <option value="Sukses">Sukses</option>
+                    <option value="Sukses Sebagian">Sukses Sebagian</option>
+                    <option value="Gagal/Membusuk">Gagal / Membusuk</option>
+                </select>
+            </div>
+
+            <!-- MODUL 2 -->
+            <div class="module-card border-t-4 border-yellow-500">
+                <h2 class="text-xl font-bold mb-4">Modul 2: Kultur Probiotik EM4 🧪</h2>
+                
+                <label class="block text-sm font-semibold mb-1">Cek Reaksi Gas Botol:</label>
+                <select id="m2-gas" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <option value="">-- Kondisi Botol --</option>
+                    <option value="Menggembung Keras (Bakteri Hidup)">Menggembung Keras (Bakteri Hidup)</option>
+                    <option value="Normal / Kempis">Normal / Kempis</option>
+                </select>
+
+                <label class="block text-sm font-semibold mb-1">Aroma Cairan:</label>
+                <select id="m2-aroma" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <option value="">-- Pilih Aroma --</option>
+                    <option value="Harum khas tapai/tuak manis">Harum khas tapai / tuak manis</option>
+                    <option value="Bau busuk / got">Bau busuk / air got</option>
+                </select>
+                
+                <label class="block text-sm font-semibold mb-1">Kesimpulan Modul 2:</label>
+                <select id="m2-kesimpulan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <option value="Kultur Hidup & Aktif">Kultur Hidup & Aktif</option>
+                    <option value="Kultur Mati / Terkontaminasi">Kultur Mati / Terkontaminasi</option>
+                </select>
+            </div>
+
+            <!-- MODUL 3 -->
+            <div class="module-card border-t-4 border-orange-600">
+                <h2 class="text-xl font-bold mb-4">Modul 3: Uji Briket Kotoran Sapi 🔥</h2>
+                
+                <label class="block text-sm font-semibold mb-1">Tingkat Kepadatan Fisik:</label>
+                <select id="m3-kepadatan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <option value="">-- Pilih Kepadatan --</option>
+                    <option value="Sangat Keras & Padat (Bintang 5)">Sangat Keras & Padat (⭐⭐⭐⭐⭐)</option>
+                    <option value="Cukup Padat (Bintang 3)">Cukup Padat (⭐⭐⭐)</option>
+                    <option value="Mudah Hancur / Rapuh (Bintang 1)">Mudah Hancur (⭐)</option>
+                </select>
+
+                <label class="block text-sm font-semibold mb-1">Lama Waktu Menyala (Menit):</label>
+                <input type="number" id="m3-nyala" placeholder="Contoh: 45" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+
+                <label class="block text-sm font-semibold mb-1">Tingkat Asap Saat Terbakar:</label>
+                <select id="m3-asap" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <option value="">-- Pilih Tingkat Asap --</option>
+                    <option value="Sangat Berasap">Sangat Berasap 🌫️</option>
+                    <option value="Sedikit Asap">Sedikit Asap 💨</option>
+                    <option value="Tanpa Asap / Sangat Minim">Tanpa Asap / Sangat Minim ❌</option>
+                </select>
+
+                <!-- FOTO BUKTI -->
+                <div class="mt-6 bg-orange-50 p-4 border border-orange-200 rounded-lg">
+                    <label class="block text-sm font-bold text-orange-800 mb-2">📸 Upload Foto Briket Menyala / Hasil Akhir</label>
+                    <input type="file" id="input-foto" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-orange-600 file:text-white hover:file:bg-orange-700">
+                    <p class="text-xs text-orange-600 mt-2">*Maksimal ukuran foto 2MB agar proses kirim lancar.</p>
+                </div>
+            </div>
+
+            <!-- REFLEKSI -->
+            <div class="module-card border-t-4 border-gray-600">
+                <h2 class="text-xl font-bold mb-4">💡 Refleksi Akhir</h2>
+                
+                <label class="block text-sm font-semibold mb-1">Dari ketiga praktik, mana yang paling sukses di kelompok Anda dan apa alasannya?</label>
+                <textarea id="input-refleksi" rows="3" class="w-full p-3 border rounded-lg mb-4 bg-gray-50"></textarea>
+
+                <label class="block text-sm font-semibold mb-1">Kendala Utama yang Dialami:</label>
+                <input type="text" id="input-kendala" placeholder="Misal: Kurang sinar matahari untuk jemur briket..." class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <button type="submit" id="btn-submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition duration-200 mb-10 text-lg">
+                🚀 Kirim Laporan ke Instruktur
+            </button>
+
+        </form>
+    </div>
+
+    <!-- SCRIPT LOGIKA PENGIRIMAN -->
+    <script>
+        // ------------------------------------------------------------------
+        // PENTING: GANTI URL DI BAWAH INI DENGAN URL WEB APP APPS SCRIPT ANDA
+        // ------------------------------------------------------------------
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8Gyv-pDfQDFHenkoc91son7awnryqEvQCFX99z9LiiMPB6opVXtw56XKX3gbKte-9dQ/exec';
+        
+        // Fungsi untuk mengubah foto menjadi Base64 (Teks) agar bisa dikirim via internet
+        function getBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+                    if ((encoded.length % 4) > 0) {
+                        encoded += '='.repeat(4 - (encoded.length % 4));
+                    }
+                    resolve(encoded);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // Proses saat tombol KIRIM ditekan
+        document.getElementById('form-evaluasi').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if(GOOGLE_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbz8Gyv-pDfQDFHenkoc91son7awnryqEvQCFX99z9LiiMPB6opVXtw56XKX3gbKte-9dQ/exec'){
+                alert("Instruktur: Mohon masukkan URL Google Apps Script Anda ke dalam file HTML.");
+                return;
+            }
+            
+            const submitButton = document.getElementById('btn-submit');
+            submitButton.innerHTML = "⏳ Sedang Mengirim Data & Foto... Mohon Tunggu...";
+            submitButton.disabled = true;
+            submitButton.classList.replace('bg-green-600', 'bg-gray-500');
+
+            try {
+                // Siapkan Foto
+                const fileInput = document.getElementById('input-foto');
+                const file = fileInput.files[0];
+                let base64Foto = "";
+                let tipeFoto = "";
+                let namaFoto = "";
+
+                if (file) {
+                    // Validasi ukuran (Max 3MB untuk keamanan script)
+                    if(file.size > 3 * 1024 * 1024) {
+                        alert("Ukuran foto terlalu besar! Maksimal 3MB.");
+                        throw new Error("File terlalu besar");
+                    }
+                    base64Foto = await getBase64(file);
+                    tipeFoto = file.type;
+                    namaFoto = "Briket_" + document.getElementById('input-kelas').value + "_" + document.getElementById('input-kelompok').value + "_" + file.name;
+                }
+
+                // Kumpulkan Data Form
+                const dataYangDikirim = {
+                    kelas: document.getElementById('input-kelas').value,
+                    kelompok: document.getElementById('input-kelompok').value,
+                    anggota: document.getElementById('input-anggota').value,
+                    
+                    m1_aroma: document.getElementById('m1-aroma').value,
+                    m1_jamur: document.getElementById('m1-jamur').value,
+                    m1_kesimpulan: document.getElementById('m1-kesimpulan').value,
+                    
+                    m2_gas: document.getElementById('m2-gas').value,
+                    m2_aroma: document.getElementById('m2-aroma').value,
+                    m2_kesimpulan: document.getElementById('m2-kesimpulan').value,
+                    
+                    m3_kepadatan: document.getElementById('m3-kepadatan').value,
+                    m3_nyala: document.getElementById('m3-nyala').value,
+                    m3_asap: document.getElementById('m3-asap').value,
+                    
+                    refleksi: document.getElementById('input-refleksi').value,
+                    kendala: document.getElementById('input-kendala').value,
+                    
+                    foto_briket_base64: base64Foto,
+                    foto_briket_tipe: tipeFoto,
+                    foto_briket_nama: namaFoto
+                };
+
+                // Kirim ke Google Apps Script
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(dataYangDikirim), 
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8' // Menghindari error CORS
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if(result.result === "success"){
+                    alert("🎉 Laporan dan Foto Berhasil Dikirim!");
+                    window.location.reload(); // Refresh halaman agar bersih
+                } else {
+                    alert("Gagal menyimpan ke server: " + result.message);
+                    throw new Error(result.message);
+                }
+
+            } catch (error) {
+                console.error(error);
+                alert("Terjadi kesalahan saat mengirim. Pastikan internet stabil.");
+                
+                // Kembalikan tombol seperti semula
+                submitButton.innerHTML = "🚀 Coba Kirim Laporan Lagi";
+                submitButton.disabled = false;
+                submitButton.classList.replace('bg-gray-500', 'bg-green-600');
+            }
+        });
+    </script>
+</body>
+</html>
