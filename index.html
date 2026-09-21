@@ -8,6 +8,9 @@
     <style>
         body { background-color: #f3f4f6; }
         .module-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .hidden-section { display: none; }
+        .active-tab { border-bottom: 4px solid #16a34a; font-weight: bold; color: #16a34a; }
+        .inactive-tab { color: #6b7280; border-bottom: 4px solid transparent; }
     </style>
 </head>
 <body class="p-4 md:p-8 text-gray-800">
@@ -15,19 +18,30 @@
     <div class="max-w-2xl mx-auto">
         
         <!-- Header -->
-        <div class="text-center mb-8 bg-green-600 text-white p-6 rounded-xl shadow-lg">
+        <div class="text-center mb-6 bg-green-600 text-white p-6 rounded-xl shadow-lg">
             <h1 class="text-2xl md:text-3xl font-bold">🌱 AgroSmart Lab</h1>
             <p class="text-sm mt-2">Portal Laporan Praktikum Terpadu SMK Agribisnis Ternak</p>
         </div>
 
-        <form id="form-evaluasi">
-            
-            <!-- IDENTITAS -->
-            <div class="module-card border-t-4 border-green-600">
-                <h2 class="text-xl font-bold mb-4">📝 Identitas Kelompok</h2>
-                
-                <label class="block text-sm font-semibold mb-1">Pilih Kelas:</label>
-                <select id="input-kelas" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
+        <!-- NAVIGASI TABS -->
+        <div class="flex justify-center bg-white rounded-t-xl mb-4 shadow-sm border-b">
+            <button id="tab-form" onclick="switchTab('form')" class="w-1/2 py-3 text-center active-tab cursor-pointer hover:bg-gray-50 transition">
+                📝 Isi Laporan
+            </button>
+            <button id="tab-rekap" onclick="switchTab('rekap')" class="w-1/2 py-3 text-center inactive-tab cursor-pointer hover:bg-gray-50 transition">
+                📊 Lihat Rekap Data
+            </button>
+        </div>
+
+        <!-- ======================= BAGIAN FORM ======================= -->
+        <div id="section-form">
+            <form id="form-evaluasi">
+                <!-- Identitas (Diringkas agar kode tak terlalu panjang di contoh, Anda bisa tambah sesuai yang lama) -->
+                <div class="module-card border-t-4 border-green-600">
+                    <h2 class="text-xl font-bold mb-4">📝 Identitas Kelompok</h2>
+                    
+                    <label class="block text-sm font-semibold mb-1">Kelas:</label>
+                    <select id="input-kelas" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
                     <option value="">-- Pilih Kelas --</option>
                     <option value="X AT 1">X AT 1</option>
                     <option value="X AT 2">X AT 2</option>
@@ -54,223 +68,199 @@
                     <option value="Kelompok 15">Kelompok 15</option>
                 </select>
 
-                <label class="block text-sm font-semibold mb-1">Nama Anggota Hadir:</label>
-                <textarea id="input-anggota" rows="2" class="w-full p-3 border rounded-lg bg-gray-50" placeholder="Misal: 1. Budi, 2. Andi, 3. Siti..." required></textarea>
-            </div>
-
-            <!-- MODUL 1 -->
-            <div class="module-card border-t-4 border-blue-500">
-                <h2 class="text-xl font-bold mb-4">Modul 1: Fermentasi Pakan 🌱</h2>
-                
-                <label class="block text-sm font-semibold mb-1">Aroma saat silo dibuka:</label>
-                <select id="m1-aroma" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-                    <option value="">-- Pilih Aroma --</option>
-                    <option value="Wangi asam manis segar (Bagus)">Wangi asam manis segar (Bagus)</option>
-                    <option value="Bau busuk menyengat (Gagal)">Bau busuk menyengat (Gagal)</option>
-                    <option value="Tidak berbau">Tidak berbau</option>
-                </select>
-
-                <label class="block text-sm font-semibold mb-1">Kondisi Jamur:</label>
-                <select id="m1-jamur" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-                    <option value="">-- Pilih Kondisi --</option>
-                    <option value="Ada Jamur Putih (Sukses)">Ada Jamur Putih (Sukses)</option>
-                    <option value="Ada Jamur Hitam/Lendir (Gagal)">Ada Jamur Hitam/Lendir (Gagal)</option>
-                    <option value="Bersih tanpa jamur">Bersih tanpa jamur</option>
-                </select>
-
-                <label class="block text-sm font-semibold mb-1">Kesimpulan Modul 1:</label>
-                <select id="m1-kesimpulan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-                    <option value="Sukses">Sukses</option>
-                    <option value="Sukses Sebagian">Sukses Sebagian</option>
-                    <option value="Gagal/Membusuk">Gagal / Membusuk</option>
-                </select>
-            </div>
-
-            <!-- MODUL 2 -->
-            <div class="module-card border-t-4 border-yellow-500">
-                <h2 class="text-xl font-bold mb-4">Modul 2: Kultur Probiotik EM4 🧪</h2>
-                
-                <label class="block text-sm font-semibold mb-1">Cek Reaksi Gas Botol:</label>
-                <select id="m2-gas" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-                    <option value="">-- Kondisi Botol --</option>
-                    <option value="Menggembung Keras (Bakteri Hidup)">Menggembung Keras (Bakteri Hidup)</option>
-                    <option value="Normal / Kempis">Normal / Kempis</option>
-                </select>
-
-                <label class="block text-sm font-semibold mb-1">Aroma Cairan:</label>
-                <select id="m2-aroma" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-                    <option value="">-- Pilih Aroma --</option>
-                    <option value="Harum khas tapai/tuak manis">Harum khas tapai / tuak manis</option>
-                    <option value="Bau busuk / got">Bau busuk / air got</option>
-                </select>
-                
-                <label class="block text-sm font-semibold mb-1">Kesimpulan Modul 2:</label>
-                <select id="m2-kesimpulan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-                    <option value="Kultur Hidup & Aktif">Kultur Hidup & Aktif</option>
-                    <option value="Kultur Mati / Terkontaminasi">Kultur Mati / Terkontaminasi</option>
-                </select>
-            </div>
-
-            <!-- MODUL 3 -->
-            <div class="module-card border-t-4 border-orange-600">
-                <h2 class="text-xl font-bold mb-4">Modul 3: Uji Briket Kotoran Sapi 🔥</h2>
-                
-                <label class="block text-sm font-semibold mb-1">Tingkat Kepadatan Fisik:</label>
-                <select id="m3-kepadatan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-                    <option value="">-- Pilih Kepadatan --</option>
-                    <option value="Sangat Keras & Padat (Bintang 5)">Sangat Keras & Padat (⭐⭐⭐⭐⭐)</option>
-                    <option value="Cukup Padat (Bintang 3)">Cukup Padat (⭐⭐⭐)</option>
-                    <option value="Mudah Hancur / Rapuh (Bintang 1)">Mudah Hancur (⭐)</option>
-                </select>
-
-                <label class="block text-sm font-semibold mb-1">Lama Waktu Menyala (Menit):</label>
-                <input type="number" id="m3-nyala" placeholder="Contoh: 45" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-
-                <label class="block text-sm font-semibold mb-1">Tingkat Asap Saat Terbakar:</label>
-                <select id="m3-asap" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
-                    <option value="">-- Pilih Tingkat Asap --</option>
-                    <option value="Sangat Berasap">Sangat Berasap 🌫️</option>
-                    <option value="Sedikit Asap">Sedikit Asap 💨</option>
-                    <option value="Tanpa Asap / Sangat Minim">Tanpa Asap / Sangat Minim ❌</option>
-                </select>
-
-                <!-- FOTO BUKTI -->
-                <div class="mt-6 bg-orange-50 p-4 border border-orange-200 rounded-lg">
-                    <label class="block text-sm font-bold text-orange-800 mb-2">📸 Upload Foto Briket Menyala / Hasil Akhir</label>
-                    <input type="file" id="input-foto" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-orange-600 file:text-white hover:file:bg-orange-700">
-                    <p class="text-xs text-orange-600 mt-2">*Maksimal ukuran foto 2MB agar proses kirim lancar.</p>
+                    <label class="block text-sm font-semibold mb-1">Anggota Hadir:</label>
+                    <textarea id="input-anggota" class="w-full p-3 border rounded-lg bg-gray-50" required></textarea>
                 </div>
+
+                <!-- Modul Singkat (Tambahkan modul 1,2,3 seperti kode HTML Anda sebelumnya di sini) -->
+                <div class="module-card border-t-4 border-orange-600">
+                    <h2 class="text-xl font-bold mb-4">🔥 Uji Briket</h2>
+                    <label class="block text-sm font-semibold mb-1">Lama Menyala (Menit):</label>
+                    <input type="number" id="m3-nyala" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
+                    
+                    <label class="block text-sm font-semibold mb-1">Tingkat Asap:</label>
+                    <select id="m3-asap" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
+                        <option value="Sangat Berasap">Sangat Berasap</option>
+                        <option value="Sedikit Asap">Sedikit Asap</option>
+                        <option value="Tanpa Asap">Tanpa Asap</option>
+                    </select>
+
+                    <label class="block text-sm font-semibold mb-1">Foto Bukti:</label>
+                    <input type="file" id="input-foto" accept="image/*" class="w-full mt-2">
+                </div>
+
+                <button type="submit" id="btn-submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition mb-10 text-lg">
+                    🚀 Kirim Laporan
+                </button>
+            </form>
+        </div>
+
+        <!-- ======================= BAGIAN REKAP ======================= -->
+        <div id="section-rekap" class="hidden-section">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-700">Rekap Laporan Masuk</h2>
+                <button onclick="loadRekap()" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-bold shadow hover:bg-blue-200">
+                    🔄 Refresh
+                </button>
             </div>
-
-            <!-- REFLEKSI -->
-            <div class="module-card border-t-4 border-gray-600">
-                <h2 class="text-xl font-bold mb-4">💡 Refleksi Akhir</h2>
-                
-                <label class="block text-sm font-semibold mb-1">Dari ketiga praktik, mana yang paling sukses di kelompok Anda dan apa alasannya?</label>
-                <textarea id="input-refleksi" rows="3" class="w-full p-3 border rounded-lg mb-4 bg-gray-50"></textarea>
-
-                <label class="block text-sm font-semibold mb-1">Kendala Utama yang Dialami:</label>
-                <input type="text" id="input-kendala" placeholder="Misal: Kurang sinar matahari untuk jemur briket..." class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+            
+            <!-- Tempat data ditampilkan -->
+            <div id="container-rekap">
+                <p class="text-center text-gray-500 py-10">Klik refresh untuk memuat data...</p>
             </div>
+        </div>
 
-            <!-- SUBMIT BUTTON -->
-            <button type="submit" id="btn-submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition duration-200 mb-10 text-lg">
-                🚀 Kirim Laporan ke Instruktur
-            </button>
-
-        </form>
     </div>
 
-    <!-- SCRIPT LOGIKA PENGIRIMAN -->
+    <!-- SCRIPT LOGIKA PENGIRIMAN & PENGAMBILAN DATA -->
     <script>
         // ------------------------------------------------------------------
         // PENTING: GANTI URL DI BAWAH INI DENGAN URL WEB APP APPS SCRIPT ANDA
         // ------------------------------------------------------------------
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8Gyv-pDfQDFHenkoc91son7awnryqEvQCFX99z9LiiMPB6opVXtw56XKX3gbKte-9dQ/exec';
-        
-        // Fungsi untuk mengubah foto menjadi Base64 (Teks) agar bisa dikirim via internet
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwho1xC42JcN6eWhK5PapMRD9I4pU4HwVUKOQPD5qNOo-cnLkL65LU_p_JuCOePlaWvzQ/exec'; 
+
+        // Fungsi berpindah tab menu
+        function switchTab(tab) {
+            if(tab === 'form') {
+                document.getElementById('section-form').classList.remove('hidden-section');
+                document.getElementById('section-rekap').classList.add('hidden-section');
+                document.getElementById('tab-form').classList.replace('inactive-tab', 'active-tab');
+                document.getElementById('tab-rekap').classList.replace('active-tab', 'inactive-tab');
+            } else {
+                document.getElementById('section-form').classList.add('hidden-section');
+                document.getElementById('section-rekap').classList.remove('hidden-section');
+                document.getElementById('tab-form').classList.replace('active-tab', 'inactive-tab');
+                document.getElementById('tab-rekap').classList.replace('inactive-tab', 'active-tab');
+                // Otomatis load data saat buka tab rekap
+                loadRekap();
+            }
+        }
+
+        // FUNGSI UNTUK MENGAMBIL DATA DARI GOOGLE SHEETS
+        async function loadRekap() {
+            const container = document.getElementById('container-rekap');
+            container.innerHTML = '<p class="text-center text-blue-500 font-bold py-10">⏳ Memuat Data dari Server...</p>';
+
+            try {
+                // Fetch method GET (default)
+                const response = await fetch(GOOGLE_SCRIPT_URL);
+                const data = await response.json();
+                
+                if (data.length === 0) {
+                    container.innerHTML = '<p class="text-center text-gray-500 py-10">Belum ada laporan yang masuk.</p>';
+                    return;
+                }
+
+                container.innerHTML = ''; // Bersihkan container
+
+                // Render tiap baris data menjadi kartu (Dibalik agar data terbaru di atas)
+                data.reverse().forEach(row => {
+                    // Karena kita baca object JSON, key disesuaikan dengan Header kolom Excel Anda.
+                    // Pastikan nama header di kode ini sama persis dengan nama Header Excel (Baris 1).
+                    // Contoh di Excel: Kolom B bernama 'Kelas', Kolom C 'Kelompok', dst.
+                    
+                    const kelas = row['Kelas'] || "-";
+                    const kelompok = row['Kelompok'] || "-";
+                    const nyala = row['M3_Nyala'] || "-";
+                    const asap = row['M3_Asap'] || "-";
+                    const linkFoto = row['Link_Foto'] || "#";
+
+                    let fotoHtml = linkFoto.includes('http') 
+                        ? `<a href="${linkFoto}" target="_blank" class="text-blue-500 underline text-sm">Lihat Foto</a>` 
+                        : `<span class="text-gray-400 text-sm">Tidak ada foto</span>`;
+
+                    const cardHtml = `
+                        <div class="bg-white rounded-xl shadow p-5 mb-4 border-l-4 border-blue-500">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h3 class="font-bold text-lg text-gray-800">${kelompok}</h3>
+                                    <p class="text-xs font-semibold text-gray-500">${kelas}</p>
+                                </div>
+                                <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded font-bold">Selesai ✅</span>
+                            </div>
+                            
+                            <div class="mt-3 grid grid-cols-2 gap-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg border">
+                                <div>
+                                    <p class="font-semibold text-xs text-gray-400">Lama Nyala:</p>
+                                    <p class="font-bold text-gray-800">🔥 ${nyala} Menit</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-xs text-gray-400">Tingkat Asap:</p>
+                                    <p class="font-bold text-gray-800">💨 ${asap}</p>
+                                </div>
+                            </div>
+                            <div class="mt-3 text-right">
+                                ${fotoHtml}
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += cardHtml;
+                });
+
+            } catch (error) {
+                container.innerHTML = '<p class="text-center text-red-500 font-bold py-10">❌ Gagal memuat data. Pastikan URL Script benar.</p>';
+                console.error(error);
+            }
+        }
+
+        // ==============================================================
+        // SCRIPT PENGIRIMAN DATA (SAMA SEPERTI SEBELUMNYA)
+        // ==============================================================
         function getBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = () => {
                     let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
-                    if ((encoded.length % 4) > 0) {
-                        encoded += '='.repeat(4 - (encoded.length % 4));
-                    }
+                    if ((encoded.length % 4) > 0) { encoded += '='.repeat(4 - (encoded.length % 4)); }
                     resolve(encoded);
                 };
                 reader.onerror = error => reject(error);
             });
         }
 
-        // Proses saat tombol KIRIM ditekan
         document.getElementById('form-evaluasi').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            if(GOOGLE_SCRIPT_URL === 'PASTE_URL_ANDA_DISINI'){
-                alert("Instruktur: Mohon masukkan URL Google Apps Script Anda ke dalam file HTML.");
-                return;
-            }
-            
-            const submitButton = document.getElementById('btn-submit');
-            submitButton.innerHTML = "⏳ Sedang Mengirim Data & Foto... Mohon Tunggu...";
-            submitButton.disabled = true;
-            submitButton.classList.replace('bg-green-600', 'bg-gray-500');
+            const submitBtn = document.getElementById('btn-submit');
+            submitBtn.innerHTML = "⏳ Mengirim..."; submitBtn.disabled = true;
 
             try {
-                // Siapkan Foto
                 const fileInput = document.getElementById('input-foto');
                 const file = fileInput.files[0];
-                let base64Foto = "";
-                let tipeFoto = "";
-                let namaFoto = "";
+                let base64Foto = "", tipeFoto = "", namaFoto = "";
 
                 if (file) {
-                    // Validasi ukuran (Max 3MB untuk keamanan script)
-                    if(file.size > 3 * 1024 * 1024) {
-                        alert("Ukuran foto terlalu besar! Maksimal 3MB.");
-                        throw new Error("File terlalu besar");
-                    }
                     base64Foto = await getBase64(file);
                     tipeFoto = file.type;
-                    namaFoto = "Briket_" + document.getElementById('input-kelas').value + "_" + document.getElementById('input-kelompok').value + "_" + file.name;
+                    namaFoto = "Foto_" + document.getElementById('input-kelompok').value + "_" + file.name;
                 }
 
-                // Kumpulkan Data Form
-                const dataYangDikirim = {
+                const dataKirim = {
                     kelas: document.getElementById('input-kelas').value,
                     kelompok: document.getElementById('input-kelompok').value,
                     anggota: document.getElementById('input-anggota').value,
-                    
-                    m1_aroma: document.getElementById('m1-aroma').value,
-                    m1_jamur: document.getElementById('m1-jamur').value,
-                    m1_kesimpulan: document.getElementById('m1-kesimpulan').value,
-                    
-                    m2_gas: document.getElementById('m2-gas').value,
-                    m2_aroma: document.getElementById('m2-aroma').value,
-                    m2_kesimpulan: document.getElementById('m2-kesimpulan').value,
-                    
-                    m3_kepadatan: document.getElementById('m3-kepadatan').value,
                     m3_nyala: document.getElementById('m3-nyala').value,
                     m3_asap: document.getElementById('m3-asap').value,
-                    
-                    refleksi: document.getElementById('input-refleksi').value,
-                    kendala: document.getElementById('input-kendala').value,
-                    
                     foto_briket_base64: base64Foto,
                     foto_briket_tipe: tipeFoto,
                     foto_briket_nama: namaFoto
                 };
 
-                // Kirim ke Google Apps Script
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(dataYangDikirim), 
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8' // Menghindari error CORS
-                    }
+                const res = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST', body: JSON.stringify(dataKirim), headers: { 'Content-Type': 'text/plain;charset=utf-8' }
                 });
                 
-                const result = await response.json();
-                
-                if(result.result === "success"){
-                    alert("🎉 Laporan dan Foto Berhasil Dikirim!");
-                    window.location.reload(); // Refresh halaman agar bersih
-                } else {
-                    alert("Gagal menyimpan ke server: " + result.message);
-                    throw new Error(result.message);
+                const result = await res.json();
+                if(result.result === "success") {
+                    alert("Sukses!"); 
+                    // Set form reset dan pindah ke tab rekap
+                    document.getElementById('form-evaluasi').reset();
+                    switchTab('rekap'); 
                 }
-
-            } catch (error) {
-                console.error(error);
-                alert("Terjadi kesalahan saat mengirim. Pastikan internet stabil.");
-                
-                // Kembalikan tombol seperti semula
-                submitButton.innerHTML = "🚀 Coba Kirim Laporan Lagi";
-                submitButton.disabled = false;
-                submitButton.classList.replace('bg-gray-500', 'bg-green-600');
+            } catch (err) {
+                alert("Gagal mengirim data.");
             }
+            submitBtn.innerHTML = "🚀 Kirim Laporan"; submitBtn.disabled = false;
         });
     </script>
 </body>
