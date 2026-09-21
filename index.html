@@ -8,9 +8,7 @@
     <style>
         body { background-color: #f3f4f6; }
         .module-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .hidden-section { display: none; }
-        .active-tab { border-bottom: 4px solid #16a34a; font-weight: bold; color: #16a34a; }
-        .inactive-tab { color: #6b7280; border-bottom: 4px solid transparent; }
+        .tab-btn { transition: all 0.3s; }
     </style>
 </head>
 <body class="p-4 md:p-8 text-gray-800">
@@ -23,25 +21,28 @@
             <p class="text-sm mt-2">Portal Laporan Praktikum Terpadu SMK Agribisnis Ternak</p>
         </div>
 
-        <!-- NAVIGASI TABS -->
-        <div class="flex justify-center bg-white rounded-t-xl mb-4 shadow-sm border-b">
-            <button id="tab-form" onclick="switchTab('form')" class="w-1/2 py-3 text-center active-tab cursor-pointer hover:bg-gray-50 transition">
+        <!-- NAVIGASI TAB MENU -->
+        <div class="flex justify-center space-x-2 mb-6">
+            <button id="btn-tab-form" class="tab-btn flex-1 bg-green-600 text-white font-bold py-3 px-4 rounded-lg shadow">
                 📝 Isi Laporan
             </button>
-            <button id="tab-rekap" onclick="switchTab('rekap')" class="w-1/2 py-3 text-center inactive-tab cursor-pointer hover:bg-gray-50 transition">
-                📊 Lihat Rekap Data
+            <button id="btn-tab-rekap" class="tab-btn flex-1 bg-gray-300 text-gray-600 font-bold py-3 px-4 rounded-lg shadow hover:bg-purple-100">
+                📊 Lihat Rekap
             </button>
         </div>
 
-        <!-- ======================= BAGIAN FORM ======================= -->
+        <!-- ============================================== -->
+        <!-- HALAMAN 1: FORM PENGISIAN (DISIMPAN DI SINI) -->
+        <!-- ============================================== -->
         <div id="section-form">
             <form id="form-evaluasi">
-                <!-- Identitas (Diringkas agar kode tak terlalu panjang di contoh, Anda bisa tambah sesuai yang lama) -->
+                
+                <!-- IDENTITAS -->
                 <div class="module-card border-t-4 border-green-600">
                     <h2 class="text-xl font-bold mb-4">📝 Identitas Kelompok</h2>
                     
-                    <label class="block text-sm font-semibold mb-1">Kelas:</label>
-                    <select id="input-kelas" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
+                <label class="block text-sm font-semibold mb-1">Pilih Kelas:</label>
+                <select id="input-kelas" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
                     <option value="">-- Pilih Kelas --</option>
                     <option value="X AT 1">X AT 1</option>
                     <option value="X AT 2">X AT 2</option>
@@ -68,151 +69,238 @@
                     <option value="Kelompok 15">Kelompok 15</option>
                 </select>
 
-                    <label class="block text-sm font-semibold mb-1">Anggota Hadir:</label>
-                    <textarea id="input-anggota" class="w-full p-3 border rounded-lg bg-gray-50" required></textarea>
+                    <label class="block text-sm font-semibold mb-1">Nama Anggota Hadir:</label>
+                    <textarea id="input-anggota" rows="2" class="w-full p-3 border rounded-lg bg-gray-50" placeholder="Misal: 1. Budi, 2. Andi..." required></textarea>
                 </div>
 
-                <!-- Modul Singkat (Tambahkan modul 1,2,3 seperti kode HTML Anda sebelumnya di sini) -->
+                <!-- MODUL 1: Fermentasi -->
+                <div class="module-card border-t-4 border-blue-500">
+                    <h2 class="text-xl font-bold mb-4">Modul 1: Fermentasi Pakan 🌱</h2>
+                    <label class="block text-sm font-semibold mb-1">Aroma saat silo dibuka:</label>
+                    <select id="m1-aroma" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                        <option value="">-- Pilih Aroma --</option>
+                        <option value="Wangi asam manis segar (Bagus)">Wangi asam manis segar (Bagus)</option>
+                        <option value="Bau busuk menyengat (Gagal)">Bau busuk menyengat (Gagal)</option>
+                        <option value="Tidak berbau">Tidak berbau</option>
+                    </select>
+                    <label class="block text-sm font-semibold mb-1">Kondisi Jamur:</label>
+                    <select id="m1-jamur" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                        <option value="">-- Pilih Kondisi --</option>
+                        <option value="Ada Jamur Putih (Sukses)">Ada Jamur Putih (Sukses)</option>
+                        <option value="Ada Jamur Hitam/Lendir (Gagal)">Ada Jamur Hitam/Lendir (Gagal)</option>
+                        <option value="Bersih tanpa jamur">Bersih tanpa jamur</option>
+                    </select>
+                    <label class="block text-sm font-semibold mb-1">Kesimpulan Modul 1:</label>
+                    <select id="m1-kesimpulan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                        <option value="Sukses">Sukses</option>
+                        <option value="Sukses Sebagian">Sukses Sebagian</option>
+                        <option value="Gagal / Membusuk">Gagal / Membusuk</option>
+                    </select>
+                </div>
+
+                <!-- MODUL 2: Kultur Probiotik -->
+                <div class="module-card border-t-4 border-yellow-500">
+                    <h2 class="text-xl font-bold mb-4">Modul 2: Kultur Probiotik EM4 🧪</h2>
+                    <label class="block text-sm font-semibold mb-1">Cek Reaksi Gas Botol:</label>
+                    <select id="m2-gas" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                        <option value="">-- Kondisi Botol --</option>
+                        <option value="Menggembung Keras (Bakteri Hidup)">Menggembung Keras (Bakteri Hidup)</option>
+                        <option value="Normal / Kempis">Normal / Kempis</option>
+                    </select>
+                    <label class="block text-sm font-semibold mb-1">Aroma Cairan:</label>
+                    <select id="m2-aroma" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                        <option value="">-- Pilih Aroma --</option>
+                        <option value="Harum khas tapai / tuak manis">Harum khas tapai / tuak manis</option>
+                        <option value="Bau busuk / air got">Bau busuk / air got</option>
+                    </select>
+                    <label class="block text-sm font-semibold mb-1">Kesimpulan Modul 2:</label>
+                    <select id="m2-kesimpulan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                        <option value="Kultur Hidup & Aktif">Kultur Hidup & Aktif</option>
+                        <option value="Kultur Mati / Terkontaminasi">Kultur Mati / Terkontaminasi</option>
+                    </select>
+                </div>
+
+                <!-- MODUL 3: Briket -->
                 <div class="module-card border-t-4 border-orange-600">
-                    <h2 class="text-xl font-bold mb-4">🔥 Uji Briket</h2>
-                    <label class="block text-sm font-semibold mb-1">Lama Menyala (Menit):</label>
-                    <input type="number" id="m3-nyala" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
-                    
-                    <label class="block text-sm font-semibold mb-1">Tingkat Asap:</label>
-                    <select id="m3-asap" class="w-full p-3 border rounded-lg mb-4 bg-gray-50" required>
-                        <option value="Sangat Berasap">Sangat Berasap</option>
-                        <option value="Sedikit Asap">Sedikit Asap</option>
-                        <option value="Tanpa Asap">Tanpa Asap</option>
+                    <h2 class="text-xl font-bold mb-4">Modul 3: Uji Briket Kotoran Sapi 🔥</h2>
+                    <label class="block text-sm font-semibold mb-1">Tingkat Kepadatan Fisik:</label>
+                    <select id="m3-kepadatan" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                        <option value="">-- Pilih Kepadatan --</option>
+                        <option value="Sangat Keras & Padat (⭐⭐⭐⭐⭐)">Sangat Keras & Padat (⭐⭐⭐⭐⭐)</option>
+                        <option value="Cukup Padat (⭐⭐⭐)">Cukup Padat (⭐⭐⭐)</option>
+                        <option value="Mudah Hancur (⭐)">Mudah Hancur (⭐)</option>
+                    </select>
+                    <label class="block text-sm font-semibold mb-1">Lama Waktu Menyala (Menit):</label>
+                    <input type="number" id="m3-nyala" placeholder="Contoh: 45" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                    <label class="block text-sm font-semibold mb-1">Tingkat Asap Saat Terbakar:</label>
+                    <select id="m3-asap" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                        <option value="">-- Pilih Tingkat Asap --</option>
+                        <option value="Sangat Berasap 🌫️">Sangat Berasap 🌫️</option>
+                        <option value="Sedikit Asap 💨">Sedikit Asap 💨</option>
+                        <option value="Tanpa Asap / Minim ❌">Tanpa Asap / Sangat Minim ❌</option>
                     </select>
 
-                    <label class="block text-sm font-semibold mb-1">Foto Bukti:</label>
-                    <input type="file" id="input-foto" accept="image/*" class="w-full mt-2">
+                    <div class="mt-6 bg-orange-50 p-4 border border-orange-200 rounded-lg">
+                        <label class="block text-sm font-bold text-orange-800 mb-2">📸 Upload Foto Briket Menyala</label>
+                        <input type="file" id="input-foto" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-orange-600 file:text-white hover:file:bg-orange-700">
+                        <p class="text-xs text-orange-600 mt-2">*Maksimal 2MB.</p>
+                    </div>
                 </div>
 
-                <button type="submit" id="btn-submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition mb-10 text-lg">
-                    🚀 Kirim Laporan
+                <!-- REFLEKSI & SUBMIT -->
+                <div class="module-card border-t-4 border-gray-600">
+                    <h2 class="text-xl font-bold mb-4">💡 Refleksi Akhir</h2>
+                    <label class="block text-sm font-semibold mb-1">Praktik mana yang paling sukses? Alasannya?</label>
+                    <textarea id="input-refleksi" rows="2" class="w-full p-3 border rounded-lg mb-4 bg-gray-50"></textarea>
+                    <label class="block text-sm font-semibold mb-1">Kendala Utama yang Dialami:</label>
+                    <input type="text" id="input-kendala" class="w-full p-3 border rounded-lg mb-4 bg-gray-50">
+                </div>
+
+                <button type="submit" id="btn-submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg transition duration-200 mb-10 text-lg">
+                    🚀 Kirim Laporan ke Instruktur
                 </button>
             </form>
         </div>
 
-        <!-- ======================= BAGIAN REKAP ======================= -->
-        <div id="section-rekap" class="hidden-section">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-700">Rekap Laporan Masuk</h2>
-                <button onclick="loadRekap()" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-bold shadow hover:bg-blue-200">
-                    🔄 Refresh
-                </button>
-            </div>
-            
-            <!-- Tempat data ditampilkan -->
-            <div id="container-rekap">
-                <p class="text-center text-gray-500 py-10">Klik refresh untuk memuat data...</p>
+
+        <!-- ============================================== -->
+        <!-- HALAMAN 2: REKAP LAPORAN (DASHBOARD PUBLIC)    -->
+        <!-- ============================================== -->
+        <div id="section-rekap" class="hidden">
+            <div class="module-card border-t-4 border-purple-500">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-purple-700">📊 Live Dashboard</h2>
+                    <button onclick="fetchRekapData()" class="bg-purple-100 text-purple-700 hover:bg-purple-200 px-3 py-1 rounded text-sm font-bold border border-purple-300">
+                        🔄 Segarkan Data
+                    </button>
+                </div>
+                
+                <p class="text-sm text-gray-500 mb-4">Berikut adalah laporan kelompok yang sudah masuk ke database instuktur:</p>
+                
+                <!-- Area Tampilan Data -->
+                <div id="rekap-container" class="space-y-4">
+                    <div class="text-center p-6 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                        ⏳ Klik "Segarkan Data" untuk memuat...
+                    </div>
+                </div>
+
             </div>
         </div>
 
     </div>
 
-    <!-- SCRIPT LOGIKA PENGIRIMAN & PENGAMBILAN DATA -->
+    <!-- SCRIPT LOGIKA APLIKASI -->
     <script>
-        // ------------------------------------------------------------------
+        // =====================================================================
         // PENTING: GANTI URL DI BAWAH INI DENGAN URL WEB APP APPS SCRIPT ANDA
-        // ------------------------------------------------------------------
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwho1xC42JcN6eWhK5PapMRD9I4pU4HwVUKOQPD5qNOo-cnLkL65LU_p_JuCOePlaWvzQ/exec'; 
+        // =====================================================================
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwFqntHtdYTcZ6sA__m8aEVpg0OeOchsoq3UZhCj3s5xfhCJPGnxNCGYl0XdmbyeKicLw/exec'; 
 
-        // Fungsi berpindah tab menu
-        function switchTab(tab) {
-            if(tab === 'form') {
-                document.getElementById('section-form').classList.remove('hidden-section');
-                document.getElementById('section-rekap').classList.add('hidden-section');
-                document.getElementById('tab-form').classList.replace('inactive-tab', 'active-tab');
-                document.getElementById('tab-rekap').classList.replace('active-tab', 'inactive-tab');
-            } else {
-                document.getElementById('section-form').classList.add('hidden-section');
-                document.getElementById('section-rekap').classList.remove('hidden-section');
-                document.getElementById('tab-form').classList.replace('active-tab', 'inactive-tab');
-                document.getElementById('tab-rekap').classList.replace('inactive-tab', 'active-tab');
-                // Otomatis load data saat buka tab rekap
-                loadRekap();
-            }
-        }
+        
+        // ----------------------------------------------------
+        // 1. LOGIKA NAVIGASI TAB (Ganti Halaman)
+        // ----------------------------------------------------
+        const tabForm = document.getElementById('btn-tab-form');
+        const tabRekap = document.getElementById('btn-tab-rekap');
+        const sectionForm = document.getElementById('section-form');
+        const sectionRekap = document.getElementById('section-rekap');
 
-        // FUNGSI UNTUK MENGAMBIL DATA DARI GOOGLE SHEETS
-        async function loadRekap() {
-            const container = document.getElementById('container-rekap');
-            container.innerHTML = '<p class="text-center text-blue-500 font-bold py-10">⏳ Memuat Data dari Server...</p>';
+        tabForm.addEventListener('click', () => {
+            sectionForm.classList.remove('hidden');
+            sectionRekap.classList.add('hidden');
+            
+            // Ubah warna tombol
+            tabForm.classList.replace('bg-gray-300', 'bg-green-600');
+            tabForm.classList.replace('text-gray-600', 'text-white');
+            tabRekap.classList.replace('bg-purple-600', 'bg-gray-300');
+            tabRekap.classList.replace('text-white', 'text-gray-600');
+        });
 
+        tabRekap.addEventListener('click', () => {
+            sectionRekap.classList.remove('hidden');
+            sectionForm.classList.add('hidden');
+            
+            // Ubah warna tombol
+            tabRekap.classList.replace('bg-gray-300', 'bg-purple-600');
+            tabRekap.classList.replace('text-gray-600', 'text-white');
+            tabForm.classList.replace('bg-green-600', 'bg-gray-300');
+            tabForm.classList.replace('text-white', 'text-gray-600');
+            
+            // Otomatis tarik data saat tab diklik
+            fetchRekapData();
+        });
+
+
+        // ----------------------------------------------------
+        // 2. LOGIKA MENGAMBIL DATA (DASHBOARD REKAP)
+        // ----------------------------------------------------
+        async function fetchRekapData() {
+            const container = document.getElementById('rekap-container');
+            container.innerHTML = `<div class="text-center p-4 text-purple-600 font-bold animate-pulse">⏳ Mengambil data dari server...</div>`;
+            
             try {
-                // Fetch method GET (default)
                 const response = await fetch(GOOGLE_SCRIPT_URL);
                 const data = await response.json();
                 
-                if (data.length === 0) {
-                    container.innerHTML = '<p class="text-center text-gray-500 py-10">Belum ada laporan yang masuk.</p>';
+                if(data.length === 0) {
+                    container.innerHTML = `<div class="text-center p-4 bg-gray-100 rounded text-gray-500">Belum ada laporan yang masuk.</div>`;
                     return;
                 }
-
-                container.innerHTML = ''; // Bersihkan container
-
-                // Render tiap baris data menjadi kartu (Dibalik agar data terbaru di atas)
+                
+                let html = '';
+                // Dibalik (reverse) agar data terbaru/terakhir submit ada di paling atas
                 data.reverse().forEach(row => {
-                    // Karena kita baca object JSON, key disesuaikan dengan Header kolom Excel Anda.
-                    // Pastikan nama header di kode ini sama persis dengan nama Header Excel (Baris 1).
-                    // Contoh di Excel: Kolom B bernama 'Kelas', Kolom C 'Kelompok', dst.
-                    
-                    const kelas = row['Kelas'] || "-";
-                    const kelompok = row['Kelompok'] || "-";
-                    const nyala = row['M3_Nyala'] || "-";
-                    const asap = row['M3_Asap'] || "-";
-                    const linkFoto = row['Link_Foto'] || "#";
+                    // Cek ketersediaan foto
+                    let linkFoto = row.foto !== 'Tidak ada foto' 
+                        ? `<a href="${row.foto}" target="_blank" class="inline-block mt-2 bg-blue-100 text-blue-700 px-3 py-1 rounded text-xs font-bold">🖼️ Lihat Foto Bukti</a>` 
+                        : `<span class="inline-block mt-2 text-gray-400 text-xs">Tidak ada foto</span>`;
 
-                    let fotoHtml = linkFoto.includes('http') 
-                        ? `<a href="${linkFoto}" target="_blank" class="text-blue-500 underline text-sm">Lihat Foto</a>` 
-                        : `<span class="text-gray-400 text-sm">Tidak ada foto</span>`;
-
-                    const cardHtml = `
-                        <div class="bg-white rounded-xl shadow p-5 mb-4 border-l-4 border-blue-500">
-                            <div class="flex justify-between items-start mb-2">
-                                <div>
-                                    <h3 class="font-bold text-lg text-gray-800">${kelompok}</h3>
-                                    <p class="text-xs font-semibold text-gray-500">${kelas}</p>
-                                </div>
-                                <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded font-bold">Selesai ✅</span>
+                    // Desain Card untuk setiap kelompok
+                    html += `
+                    <div class="border border-gray-200 rounded-lg p-4 shadow-sm bg-white hover:shadow-md transition">
+                        <div class="flex justify-between items-start border-b pb-2 mb-2">
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-800">${row.kelompok}</h3>
+                                <p class="text-xs text-gray-500">${row.kelas}</p>
                             </div>
-                            
-                            <div class="mt-3 grid grid-cols-2 gap-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg border">
-                                <div>
-                                    <p class="font-semibold text-xs text-gray-400">Lama Nyala:</p>
-                                    <p class="font-bold text-gray-800">🔥 ${nyala} Menit</p>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-xs text-gray-400">Tingkat Asap:</p>
-                                    <p class="font-bold text-gray-800">💨 ${asap}</p>
-                                </div>
+                            <span class="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">${new Date(row.waktu).toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'})}</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-sm mt-3">
+                            <div class="bg-blue-50 p-2 rounded">
+                                <span class="block text-xs text-blue-600 font-bold">Pakan (M1)</span>
+                                <span class="text-gray-700">${row.m1_hasil || '-'}</span>
                             </div>
-                            <div class="mt-3 text-right">
-                                ${fotoHtml}
+                            <div class="bg-yellow-50 p-2 rounded">
+                                <span class="block text-xs text-yellow-600 font-bold">Probiotik (M2)</span>
+                                <span class="text-gray-700">${row.m2_hasil || '-'}</span>
+                            </div>
+                            <div class="col-span-2 bg-orange-50 p-2 rounded">
+                                <span class="block text-xs text-orange-600 font-bold">Nyala Briket (M3)</span>
+                                <span class="text-gray-700 font-bold">${row.m3_nyala ? row.m3_nyala + ' Menit' : '-'}</span>
                             </div>
                         </div>
-                    `;
-                    container.innerHTML += cardHtml;
+                        ${linkFoto}
+                    </div>`;
                 });
-
+                
+                container.innerHTML = html;
             } catch (error) {
-                container.innerHTML = '<p class="text-center text-red-500 font-bold py-10">❌ Gagal memuat data. Pastikan URL Script benar.</p>';
-                console.error(error);
+                container.innerHTML = `<div class="text-center p-4 bg-red-100 text-red-600 rounded">Gagal memuat data. Periksa internet atau Link Script Anda.</div>`;
             }
         }
 
-        // ==============================================================
-        // SCRIPT PENGIRIMAN DATA (SAMA SEPERTI SEBELUMNYA)
-        // ==============================================================
+
+        // ----------------------------------------------------
+        // 3. LOGIKA MENGIRIM DATA (POST LAPORAN)
+        // ----------------------------------------------------
         function getBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = () => {
                     let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
-                    if ((encoded.length % 4) > 0) { encoded += '='.repeat(4 - (encoded.length % 4)); }
+                    if ((encoded.length % 4) > 0) encoded += '='.repeat(4 - (encoded.length % 4));
                     resolve(encoded);
                 };
                 reader.onerror = error => reject(error);
@@ -221,8 +309,16 @@
 
         document.getElementById('form-evaluasi').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            if(GOOGLE_SCRIPT_URL === 'PASTE_URL_ANDA_DISINI'){
+                alert("Instruktur: Mohon masukkan URL Google Apps Script Anda ke dalam kode HTML.");
+                return;
+            }
+            
             const submitBtn = document.getElementById('btn-submit');
-            submitBtn.innerHTML = "⏳ Mengirim..."; submitBtn.disabled = true;
+            submitBtn.innerHTML = "⏳ Sedang Mengirim... Jangan Tutup Halaman!";
+            submitBtn.disabled = true;
+            submitBtn.classList.replace('bg-green-600', 'bg-gray-500');
 
             try {
                 const fileInput = document.getElementById('input-foto');
@@ -230,37 +326,54 @@
                 let base64Foto = "", tipeFoto = "", namaFoto = "";
 
                 if (file) {
+                    if(file.size > 2 * 1024 * 1024) throw new Error("Ukuran foto maksimal 2MB!");
                     base64Foto = await getBase64(file);
                     tipeFoto = file.type;
-                    namaFoto = "Foto_" + document.getElementById('input-kelompok').value + "_" + file.name;
+                    namaFoto = "Briket_" + document.getElementById('input-kelas').value + "_" + document.getElementById('input-kelompok').value + "_" + file.name;
                 }
 
                 const dataKirim = {
                     kelas: document.getElementById('input-kelas').value,
                     kelompok: document.getElementById('input-kelompok').value,
                     anggota: document.getElementById('input-anggota').value,
+                    m1_aroma: document.getElementById('m1-aroma').value,
+                    m1_jamur: document.getElementById('m1-jamur').value,
+                    m1_kesimpulan: document.getElementById('m1-kesimpulan').value,
+                    m2_gas: document.getElementById('m2-gas').value,
+                    m2_aroma: document.getElementById('m2-aroma').value,
+                    m2_kesimpulan: document.getElementById('m2-kesimpulan').value,
+                    m3_kepadatan: document.getElementById('m3-kepadatan').value,
                     m3_nyala: document.getElementById('m3-nyala').value,
                     m3_asap: document.getElementById('m3-asap').value,
+                    refleksi: document.getElementById('input-refleksi').value,
+                    kendala: document.getElementById('input-kendala').value,
                     foto_briket_base64: base64Foto,
                     foto_briket_tipe: tipeFoto,
                     foto_briket_nama: namaFoto
                 };
 
-                const res = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', body: JSON.stringify(dataKirim), headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(dataKirim), 
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
                 });
                 
-                const result = await res.json();
-                if(result.result === "success") {
-                    alert("Sukses!"); 
-                    // Set form reset dan pindah ke tab rekap
+                const result = await response.json();
+                
+                if(result.result === "success"){
+                    alert("🎉 Laporan Berhasil Dikirim!");
                     document.getElementById('form-evaluasi').reset();
-                    switchTab('rekap'); 
-                }
-            } catch (err) {
-                alert("Gagal mengirim data.");
+                    // Pindah ke tab rekap secara otomatis setelah sukses
+                    tabRekap.click(); 
+                } else throw new Error(result.message);
+
+            } catch (error) {
+                alert("Gagal: " + error.message);
+            } finally {
+                submitBtn.innerHTML = "🚀 Kirim Laporan ke Instruktur";
+                submitBtn.disabled = false;
+                submitBtn.classList.replace('bg-gray-500', 'bg-green-600');
             }
-            submitBtn.innerHTML = "🚀 Kirim Laporan"; submitBtn.disabled = false;
         });
     </script>
 </body>
